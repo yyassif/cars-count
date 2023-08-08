@@ -1,8 +1,9 @@
 import os
 from datetime import date
 from io import BytesIO
-import cv2
+
 import boto3
+import cv2
 import torch
 # from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request, url_for
@@ -87,21 +88,21 @@ def upload_image(image, filetype, filename):
 
 
 
-# Assuming you have the list of results in a variable called 'results'
-for result in results:
-    # Get the original image
-    orig_img = result.orig_img
+# # Assuming you have the list of results in a variable called 'results'
+# for result in results:
+#     # Get the original image
+#     orig_img = result.orig_img
 
-    # Get the bounding box predictions
-    boxes = result.boxes
+#     # Get the bounding box predictions
+#     boxes = result.boxes
 
-    # Draw bounding boxes on the image
-    for box in boxes:
-        x_min, y_min, x_max, y_max, score, class_id = box.boxes.tolist()[0]
-        cv2.rectangle(orig_img, (int(x_min), int(y_min)), (int(x_max), int(y_max)), (0, 255, 0), 2)
+#     # Draw bounding boxes on the image
+#     for box in boxes:
+#         x_min, y_min, x_max, y_max, score, class_id = box.boxes.tolist()[0]
+#         cv2.rectangle(orig_img, (int(x_min), int(y_min)), (int(x_max), int(y_max)), (0, 255, 0), 2)
 
-    # Display the image
-    orig_img_rgb = cv2.cvtColor(orig_img, cv2.COLOR_BGR2RGB)
+#     # Display the image
+#     orig_img_rgb = cv2.cvtColor(orig_img, cv2.COLOR_BGR2RGB)
 
 if __name__ == '__main__':
   app.run()
