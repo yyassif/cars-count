@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block title %} Prediction - Cars Count {% endblock
+title %} {% block content %}
+<section class="flex-grow items-center flex dark:bg-gray-800">
+  <div
+    class="grid py-6 px-4 mx-auto max-w-screen-xl lg:gap-8 xl:gap-0 lg:py-12 grid-cols-1 w-full"
+  >
+    <div class="w-full rounded-lg overflow-hidden">
+      <img
+        class="w-full h-auto rounded-lg transform transition duration-700 hover:scale-110 cursor-pointer"
+        src="{{result_image}}"
+        alt="Prediction"
+      />
+    </div>
+
+    <h3 class="text-xl text-center py-2 dark:text-white">
+      The number of predicted cars in this image is:
+      <span class="font-medium">{{result_number}}</span>
+    </h3>
+  </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,6 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+restartPolicyType = "always"
+restartPolicyMaxRetries = 10
