@@ -16,5 +16,6 @@ s3transfer==0.6.1
 six==1.16.0
 urllib3==1.26.16
 Werkzeug==2.3.6
+opencv-python==4.8.0.74
 torch==2.0.1
 ultralytics==8.0.150

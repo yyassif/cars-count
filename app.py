@@ -67,7 +67,24 @@ def predict():
         for result in results:
             boxes = result.boxes.cpu().numpy()
             counts += len(boxes)
-      
+
+        buffer = BytesIO() 
+        result = results[0]
+        orig_img = result.orig_img
+        boxes = result.boxes
+
+        for box in boxes:
+            x_min, y_min, x_max, y_max, score, class_id = box.boxes.tolist()[0]
+            cv2.rectangle(orig_img, (int(x_min), int(y_min)), (int(x_max), int(y_max)), (0, 255, 0), 2)
+
+        orig_img_rgb = cv2.cvtColor(orig_img, cv2.COLOR_BGR2RGB)
+
+        # Convert the image array to a PIL Image
+        PIL_image = Image.fromarray(orig_img_rgb)
+
+        # Save the PIL Image to the in-memory buffer
+        PIL_image.save(buffer, format=image_file.filename.split(".")[-1])
+        uploaded_image_path = upload_image(PIL_image, image_file.filename.split(".")[-1], image_file.filename)
         return redirect(url_for('prediction', result_image=uploaded_image_path, result_number=result_number))
 
   return render_template('predict.html')
@@ -84,25 +101,6 @@ def upload_image(image, filetype, filename):
   except Exception as e:
     print("Couldn't upload the image")
   return None
-
-
-
-
-# # Assuming you have the list of results in a variable called 'results'
-# for result in results:
-#     # Get the original image
-#     orig_img = result.orig_img
-
-#     # Get the bounding box predictions
-#     boxes = result.boxes
-
-#     # Draw bounding boxes on the image
-#     for box in boxes:
-#         x_min, y_min, x_max, y_max, score, class_id = box.boxes.tolist()[0]
-#         cv2.rectangle(orig_img, (int(x_min), int(y_min)), (int(x_max), int(y_max)), (0, 255, 0), 2)
-
-#     # Display the image
-#     orig_img_rgb = cv2.cvtColor(orig_img, cv2.COLOR_BGR2RGB)
 
 if __name__ == '__main__':
   app.run()
